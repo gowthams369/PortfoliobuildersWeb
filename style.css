@@ -70,7 +70,7 @@ nav ul {
     display: flex;
     list-style: none;
     margin-right: 30px;
-    flex: wrap;
+    flex-wrap: wrap;
 }
 
 nav ul li {
@@ -192,23 +192,25 @@ nav a:hover::after {
     }
 
     nav#mainNav {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 80%;
-        max-width: 300px;
-        height: 100vh;
-        background-color: #000;
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 80px 20px 20px;
-        transition: right 0.3s ease;
-        z-index: 1000;
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+        display: block !important;
+        /* Ensure the nav element itself is displayed */
+        visibility: visible !important;
+        /* Make sure visibility is not hidden */
+        opacity: 1 !important;
     }
 
     nav#mainNav.active {
-        right: 0;
+        right: -100%;
+    }
+
+    .menu-toggle {
+        position: relative;
+        z-index: 1002;
+        /* Ensure it's above the nav */
+    }
+
+    body.menu-open {
+        overflow: hidden;
     }
 
     nav#mainNav ul {
@@ -234,14 +236,63 @@ nav a:hover::after {
 
     .menu-nav-buttons {
         display: flex;
-        flex-direction: column;
+        flex-direction: row !important;
         width: 100%;
         margin-top: 20px;
         gap: 10px;
+        justify-content:center;
+    }
+
+    .nav-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
     }
 
     .menu-nav-buttons .btn {
         width: 100%;
+    }
+
+    .menu-toggle {
+        display: none;
+        /* Hide by default */
+        cursor: pointer;
+    }
+
+
+    .nav-overlay.active {
+        display: block;
+    }
+
+    .menu-nav-buttons .btn {
+        width: auto !important;
+        /* Override full width for buttons */
+        min-width: 120px;
+        /* Ensure reasonable minimum width */
+        text-align: center;
+    }
+
+}
+
+
+@media screen and (max-width: 991px) {
+    .menu-toggle {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+    }
+
+    /* Make sure the icon is visible */
+    .menu-toggle i {
+        font-size: 24px;
+        color: #fff;
     }
 }
 
